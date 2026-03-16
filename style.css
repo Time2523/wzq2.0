@@ -1,0 +1,252 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SimSun', serif;
+    background-color: #f5f0e1;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f5f0e1"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23e6d7b8" stroke-width="0.5"/></svg>');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background-color: #DEB887;
+    padding: 30px;
+    border: 8px solid #8B4513;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(139, 69, 19, 0.3), inset 0 0 20px rgba(139, 69, 19, 0.1);
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    z-index: 1;
+}
+
+.container > * {
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #8B4513;
+    font-family: 'SimSun', serif;
+    font-size: 28px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    letter-spacing: 2px;
+}
+
+.info {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.score-display {
+    font-family: 'SimSun', serif;
+    color: #8B4513;
+    font-size: 14px;
+    text-align: left;
+}
+
+.score-display div {
+    margin-bottom: 5px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#status {
+    font-size: 18px;
+    font-weight: bold;
+    color: #8B4513;
+    font-family: 'SimSun', serif;
+}
+
+.scoreboard {
+    display: flex;
+    gap: 20px;
+    font-size: 16px;
+    font-family: 'SimSun', serif;
+    color: #8B4513;
+}
+
+.scoreboard span {
+    font-weight: bold;
+}
+
+#restart, #undo {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #8B4513;
+    color: #f5f0e1;
+    border: 2px solid #6b3410;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'SimSun', serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+#restart:hover, #undo:hover {
+    background-color: #6b3410;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#undo:disabled {
+    background-color: #a07653;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(15, 45px);
+    grid-template-rows: repeat(15, 45px);
+    gap: 1px;
+    background-color: #8B4513;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+.cell {
+    width: 45px;
+    height: 45px;
+    background-color: #DEB887;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.cell:hover {
+    background-color: #D2B48C;
+}
+
+.stone {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.black {
+    background-color: black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.white {
+    background-color: white;
+    border: 1px solid #333;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.game-over {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(139, 69, 19, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+}
+
+.game-over.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.game-over-content {
+    background-color: #f5f0e1;
+    padding: 30px;
+    border: 4px solid #8B4513;
+    border-radius: 10px;
+    text-align: center;
+    transform: scale(0.8);
+    transition: all 0.5s ease;
+    box-shadow: 0 0 20px rgba(139, 69, 19, 0.5);
+}
+
+.game-over.active .game-over-content {
+    transform: scale(1);
+    animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.game-over-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #8B4513;
+    font-family: 'SimSun', serif;
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #f5f0e1, 0 0 20px #f5f0e1, 0 0 30px #8B4513, 0 0 40px #8B4513;
+    }
+    to {
+        text-shadow: 0 0 20px #f5f0e1, 0 0 30px #8B4513, 0 0 40px #8B4513, 0 0 50px #8B4513;
+    }
+}
+
+#play-again {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #8B4513;
+    color: #f5f0e1;
+    border: 2px solid #6b3410;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'SimSun', serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+#play-again:hover {
+    background-color: #6b3410;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}

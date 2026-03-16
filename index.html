@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>五子棋游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>五子棋游戏</h1>
+        <div class="info">
+            <div class="score-display">
+                <div>当前得分: <span id="current-score">0</span></div>
+                <div>历史最高分: <span id="highest-score">0</span></div>
+            </div>
+            <div id="status">轮到黑棋</div>
+            <div class="scoreboard">
+                <span>黑棋: <span id="black-wins">0</span></span>
+                <span>白棋: <span id="white-wins">0</span></span>
+            </div>
+            <div class="buttons">
+                <button id="undo">悔棋</button>
+                <button id="restart">重新开始</button>
+            </div>
+        </div>
+        <div id="board"></div>
+        <div id="game-over" class="game-over">
+            <div class="game-over-content">
+                <h2 id="game-over-message"></h2>
+                <button id="play-again">小菜鸡，再来一局吧</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
